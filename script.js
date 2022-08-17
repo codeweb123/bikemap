@@ -6,8 +6,6 @@ class Bikeride {
   clicks = 0;
 
   constructor(coords, distance, time) {
-    // this.date = ...
-    // this.id = ...
     this.coords = coords; // [lat, lng]
     this.distance = distance; // in km
     this.time = time; // in min
@@ -134,15 +132,6 @@ class App {
       )
         return alert("Inputs have to be positive numbers!");
     }
-
-    // If workout cycling, create cycling object
-    if (type === "biking") {
-      if (
-        !validInputs(distance, time) ||
-        !allPositive(distance, time)
-      )
-        return alert("Inputs have to be positive numbers!");
-
       bikeride = new Biking([lat, lng], distance, time);
     }
 
@@ -160,7 +149,7 @@ class App {
 
     // Set local storage to all workouts
     this._setLocalStorage();
-  }
+
 
   _renderBikerideMarker(bikeride) {
     L.marker(bikeride.coords)
@@ -175,7 +164,7 @@ class App {
         })
       )
       .setPopupContent(
-        `${bikeride.type === "🚴‍♀️"} ${workout.description}`
+        `${bikeride.type === "🚴‍♀️"} ${bikeride.description}`
       )
       .openPopup();
   }
@@ -188,42 +177,27 @@ class App {
           <span class="bikeride__icon">${
             bikeride.type === "🚴‍♀️"
           }</span>
-          <span class="bikeride__value">${workout.distance}</span>
-          <span class="workout__unit">km</span>
+          <span class="bikeride__value">${bikeride.distance}</span>
+          <span class="bikeride__unit">km</span>
         </div>
-        <div class="workout__details">
-          <span class="workout__icon">⏱</span>
-          <span class="workout__value">${workout.duration}</span>
-          <span class="workout__unit">min</span>
+        <div class="bikeride__details">
+          <span class="bikeride__icon">⏱</span>
+          <span class="bikeride__value">${bikeride.time}</span>
+          <span class="bikeride__unit">min</span>
         </div>
     `;
 
-    if (workout.type === "running")
+    if (bikeride.type === "biking")
       html += `
-        <div class="workout__details">
-          <span class="workout__icon">⚡️</span>
-          <span class="workout__value">${workout.pace.toFixed(1)}</span>
-          <span class="workout__unit">min/km</span>
+        <div class="bikeride__details">
+          <span class="bikeride__icon">⚡️</span>
+          <span class="bikeride__value">${bikeride.speed.toFixed(1)}</span>
+          <span class="bikeride__unit">km/h</span>
         </div>
-        <div class="workout__details">
-          <span class="workout__icon">🦶🏼</span>
-          <span class="workout__value">${workout.cadence}</span>
-          <span class="workout__unit">spm</span>
-        </div>
-      </li>
-      `;
-
-    if (workout.type === "cycling")
-      html += `
-        <div class="workout__details">
-          <span class="workout__icon">⚡️</span>
-          <span class="workout__value">${workout.speed.toFixed(1)}</span>
-          <span class="workout__unit">km/h</span>
-        </div>
-        <div class="workout__details">
-          <span class="workout__icon">⛰</span>
-          <span class="workout__value">${workout.elevationGain}</span>
-          <span class="workout__unit">m</span>
+        <div class="bikeride__details">
+          <span class="bikeride__icon">⛰</span>
+          <span class="bikeride__value">${bikeride.elevationGain}</span>
+          <span class="bikeride__unit">m</span>
         </div>
       </li>
       `;
@@ -273,5 +247,7 @@ class App {
     location.reload();
   }
 }
+
+
 
 const app = new App();
