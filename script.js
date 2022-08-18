@@ -1,13 +1,13 @@
 "use strict";
 
-class Bikeride {
+class Exercise {
   date = new Date();
   id = (Date.now() + "").slice(-10);
   clicks = 0;
 
   constructor(coords, distance, time) {
     this.coords = coords; // [lat, lng]
-    this.distance = distance; // in km
+    this.distance = distance; // in m
     this.time = time; // in min
   }
 
@@ -25,7 +25,7 @@ class Bikeride {
   }
 }
 
-class Jogging extends Bikeride {
+class Jogging extends Exercise {
   type = "jogging";
 
   constructor(coords, distance, time) {
@@ -41,7 +41,7 @@ class Jogging extends Bikeride {
   }
 }
 
-class Biking extends Bikeride {
+class Biking extends Exercise {
   type = "biking";
 
   constructor(coords, distance, time) {
@@ -59,7 +59,7 @@ class Biking extends Bikeride {
 }
 // APPLICATION ARCHITECTURE
 const form = document.querySelector(".form");
-const containerWorkouts = document.querySelector(".bikerides");
+const containerWorkouts = document.querySelector(".exercises");
 const inputType = document.querySelector(".form__input--type");
 const inputDistance = document.querySelector(".form__input--distance");
 const inputTime = document.querySelector(".form__input--time");
@@ -68,7 +68,7 @@ class App {
   #map;
   #mapZoomLevel = 13;
   #mapEvent;
-  #bikerides = [];
+  #exercises = [];
 
   constructor() {
     // Get user's position
@@ -78,8 +78,8 @@ class App {
     this._getLocalStorage();
 
     // Attach event handlers
-    form.addEventListener("submit", this._newBikeride.bind(this));
-    containerBikerides.addEventListener("click", this._moveToPopup.bind(this));
+    form.addEventListener("submit", this._newexercise.bind(this));
+    containerexercises.addEventListener("click", this._moveToPopup.bind(this));
   }
 
   _getPosition() {
@@ -108,8 +108,8 @@ class App {
     // Handling clicks on map
     this.#map.on("click", this._showForm.bind(this));
 
-    this.#bikerides.forEach((bike) => {
-      this._renderBikerideMarker(bike);
+    this.#exercises.forEach((bike) => {
+      this._renderexerciseMarker(bike);
     });
   }
 
@@ -127,7 +127,7 @@ class App {
     setTimeout(() => (form.style.display = "grid"), 1000);
   }
 
-  _newBikeride(e) {
+  _newexercise(e) {
     const validInputs = (...inputs) =>
       inputs.every((inp) => Number.isFinite(inp));
     const allPositive = (...inputs) => inputs.every((inp) => inp > 0);
@@ -139,7 +139,7 @@ class App {
     const distance = +inputDistance.value;
     const time = +inputTime.value;
     const { lat, lng } = this.#mapEvent.latlng;
-    let bikeride;
+    let exercise;
 
     if (type === "jogging") {
       // Check if data is valid
@@ -156,17 +156,17 @@ class App {
       // Check if data is valid
       if (!validInputs(distance, time) || !allPositive(distance, time))
         return alert("Inputs have to be positive numbers!");
-      bikeride = new Biking([lat, lng], distance, time);
+      exercise = new Biking([lat, lng], distance, time);
     }
 
     // Add new object to workout array
-    this.#bikerides.push(bikeride);
+    this.#exercises.push(exercise);
 
     // Render workout on map as marker
-    this._renderBikerideMarker(bikeride);
+    this._renderexerciseMarker(exercise);
 
     // Render workout on list
-    this._renderBikeride(bikeride);
+    this._renderexercise(exercise);
 
     // Hide form + clear input fields
     this._hideForm();
@@ -175,8 +175,8 @@ class App {
     this._setLocalStorage();
   }
 
-  _renderBikerideMarker(bikeride) {
-    L.marker(bikeride.coords)
+  _renderexerciseMarker(exercise) {
+    L.marker(exercise.coords)
       .addTo(this.#map)
       .bindPopup(
         L.popup({
@@ -184,53 +184,53 @@ class App {
           minWidth: 100,
           autoClose: false,
           closeOnClick: false,
-          className: `${bikeride.type}-popup`,
+          className: `${exercise.type}-popup`,
         })
       )
-      .setPopupContent(`${bikeride.type === "🚴‍♀️"} ${bikeride.description}`)
+      .setPopupContent(`${exercise.type === "🚴‍♀️"} ${exercise.description}`)
       .openPopup();
   }
 
-  _renderBikeride(bikeride) {
+  _renderexercise(exercise) {
     let html = `
-      <li class="workout workout--${bikeride.type}" data-id="${bikeride.id}">
-        <h2 class="bikeride__title">${bikeride.description}</h2>
-        <div class="bikeride__details">
-          <span class="bikeride__icon">${bikeride.type === "🚴‍♀️"}</span>
-          <span class="bikeride__value">${bikeride.distance}</span>
-          <span class="bikeride__unit">km</span>
+      <li class="workout workout--${exercise.type}" data-id="${exercise.id}">
+        <h2 class="exercise__title">${exercise.description}</h2>
+        <div class="exercise__details">
+          <span class="exercise__icon">${exercise.type === "🚴‍♀️"}</span>
+          <span class="exercise__value">${exercise.distance}</span>
+          <span class="exercise__unit">km</span>
         </div>
-        <div class="bikeride__details">
-          <span class="bikeride__icon">⏱</span>
-          <span class="bikeride__value">${bikeride.time}</span>
-          <span class="bikeride__unit">min</span>
+        <div class="exercise__details">
+          <span class="exercise__icon">⏱</span>
+          <span class="exercise__value">${exercise.time}</span>
+          <span class="exercise__unit">min</span>
         </div>
     `;
 
-    if (bikeride.type === "jogging")
+    if (exercise.type === "jogging")
       html += `
-        <div class="bikeride__details">
-          <span class="bikeride__icon">⚡️</span>
-          <span class="bikeride__value">${bikeride.pace.toFixed(1)}</span>
-          <span class="bikeride__unit">min/km</span>
+        <div class="exercise__details">
+          <span class="exercise__icon">⚡️</span>
+          <span class="exercise__value">${exercise.pace.toFixed(1)}</span>
+          <span class="exercise__unit">min/km</span>
         </div>
-        <div class="bikeride__details">
-          <span class="bikeride__icon">🦶🏼</span>
-          <span class="bikeride__unit">spm</span>
+        <div class="exercise__details">
+          <span class="exercise__icon">🦶🏼</span>
+          <span class="exercise__unit">spm</span>
         </div>
       </li>
       `;
 
-    if (bikeride.type === "biking")
+    if (exercise.type === "biking")
       html += `
-        <div class="bikeride__details">
-          <span class="bikeride__icon">⚡️</span>
-          <span class="bikeride__value">${bikeride.speed.toFixed(1)}</span>
-          <span class="bikeride__unit">m/h</span>
+        <div class="exercise__details">
+          <span class="exercise__icon">⚡️</span>
+          <span class="exercise__value">${exercise.speed.toFixed(1)}</span>
+          <span class="exercise__unit">m/h</span>
         </div>
-        <div class="bikeride__details">
-          <span class="bikeride__icon">⛰</span>
-          <span class="bikeride__unit">m</span>
+        <div class="exercise__details">
+          <span class="exercise__icon">⛰</span>
+          <span class="exercise__unit">m</span>
         </div>
       </li>
       `;
@@ -242,15 +242,15 @@ class App {
     // BUGFIX: When we click on a workout before the map has loaded, we get an error. But there is an easy fix:
     if (!this.#map) return;
 
-    const bikerideEl = e.target.closest(".bikeride");
+    const exerciseEl = e.target.closest(".exercise");
 
-    if (!bikerideEl) return;
+    if (!exerciseEl) return;
 
-    const bikeride = this.#bikerides.find(
-      (bike) => bike.id === bikerideEl.dataset.id
+    const exercise = this.#exercises.find(
+      (bike) => bike.id === exerciseEl.dataset.id
     );
 
-    this.#map.setView(bikeride.coords, this.#mapZoomLevel, {
+    this.#map.setView(exercise.coords, this.#mapZoomLevel, {
       animate: true,
       pan: {
         time: 1,
@@ -259,23 +259,23 @@ class App {
   }
 
   _setLocalStorage() {
-    localStorage.setItem("bikerides", JSON.stringify(this.#bikerides));
+    localStorage.setItem("exercises", JSON.stringify(this.#exercises));
   }
 
   _getLocalStorage() {
-    const data = JSON.parse(localStorage.getItem("bikerides"));
+    const data = JSON.parse(localStorage.getItem("exercises"));
 
     if (!data) return;
 
-    this.#bikerides = data;
+    this.#exercises = data;
 
-    this.#bikerides.forEach((bike) => {
-      this._renderBikeride(bike);
+    this.#exercises.forEach((bike) => {
+      this._renderexercise(bike);
     });
   }
 
   reset() {
-    localStorage.removeItem("bikerides");
+    localStorage.removeItem("exercises");
     location.reload();
   }
 }

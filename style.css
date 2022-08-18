@@ -55,18 +55,18 @@ a:visited {
   margin-bottom: 4rem;
 }
 
-.bikerides {
+.exercises {
   list-style: none;
   height: 77vh;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
-.bikerides::-webkit-scrollbar {
+.exercises::-webkit-scrollbar {
   width: 0;
 }
 
-.bikeride {
+.exercise {
   background-color: var(--color-dark--2);
   border-radius: 5px;
   padding: 1.5rem 2.25rem;
@@ -77,36 +77,36 @@ a:visited {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 0.75rem 1.5rem;
 }
-.bikeride--running {
+.exercise--running {
   border-left: 5px solid var(--color-brand--2);
 }
-.bikeride--cycling {
+.exercise--cycling {
   border-left: 5px solid var(--color-brand--1);
 }
 
-.bikeride__title {
+.exercise__title {
   font-size: 1.7rem;
   font-weight: 600;
   grid-column: 1 / -1;
 }
 
-.bikeride__details {
+.exercise__details {
   display: flex;
   align-items: baseline;
 }
 
-.bikeride__icon {
+.exercise__icon {
   font-size: 1.8rem;
   margin-right: 0.2rem;
   height: 0.28rem;
 }
 
-.bikeride__value {
+.exercise__value {
   font-size: 1.5rem;
   margin-right: 0.5rem;
 }
 
-.bikeride__unit {
+.exercise__unit {
   font-size: 1.1rem;
   color: var(--color-light--1);
   text-transform: uppercase;
@@ -211,6 +211,11 @@ a:visited {
 .leaflet-popup .leaflet-popup-tip {
   background-color: var(--color-dark--1);
 }
+
+.running-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid var(--color-brand--2);
+}
+
 .biking-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid var(--color-brand--1);
 }
