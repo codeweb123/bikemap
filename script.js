@@ -124,14 +124,10 @@ class App {
     const time = +inputTime.value;
     const { lat, lng } = this.#mapEvent.latlng;
     let bikeride;
-
+    if (type === "biking") {
       // Check if data is valid
-      if (
-        !validInputs(distance, time) ||
-        !allPositive(distance, time)
-      )
+      if (!validInputs(distance, time) || !allPositive(distance, time))
         return alert("Inputs have to be positive numbers!");
-    }
       bikeride = new Biking([lat, lng], distance, time);
     }
 
@@ -149,7 +145,7 @@ class App {
 
     // Set local storage to all workouts
     this._setLocalStorage();
-
+  }
 
   _renderBikerideMarker(bikeride) {
     L.marker(bikeride.coords)
@@ -163,9 +159,7 @@ class App {
           className: `${bikeride.type}-popup`,
         })
       )
-      .setPopupContent(
-        `${bikeride.type === "🚴‍♀️"} ${bikeride.description}`
-      )
+      .setPopupContent(`${bikeride.type === "🚴‍♀️"} ${bikeride.description}`)
       .openPopup();
   }
 
@@ -174,9 +168,7 @@ class App {
       <li class="workout workout--${bikeride.type}" data-id="${bikeride.id}">
         <h2 class="bikeride__title">${bikeride.description}</h2>
         <div class="bikeride__details">
-          <span class="bikeride__icon">${
-            bikeride.type === "🚴‍♀️"
-          }</span>
+          <span class="bikeride__icon">${bikeride.type === "🚴‍♀️"}</span>
           <span class="bikeride__value">${bikeride.distance}</span>
           <span class="bikeride__unit">km</span>
         </div>
@@ -223,7 +215,6 @@ class App {
         time: 1,
       },
     });
-
   }
 
   _setLocalStorage() {
@@ -247,7 +238,5 @@ class App {
     location.reload();
   }
 }
-
-
 
 const app = new App();
