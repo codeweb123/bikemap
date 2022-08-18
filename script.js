@@ -25,6 +25,22 @@ class Bikeride {
   }
 }
 
+class Jogging extends Bikeride {
+  type = "jogging";
+
+  constructor(coords, distance, time) {
+    super(coords, distance, time);
+    this.calcPace();
+    this._setDescription();
+  }
+
+  calcPace() {
+    // min/km
+    this.pace = this.time / this.distance;
+    return this.pace;
+  }
+}
+
 class Biking extends Bikeride {
   type = "biking";
 
@@ -124,6 +140,18 @@ class App {
     const time = +inputTime.value;
     const { lat, lng } = this.#mapEvent.latlng;
     let bikeride;
+
+    if (type === "jogging") {
+      // Check if data is valid
+      if (
+        !validInputs(distance, duration, cadence) ||
+        !allPositive(distance, duration, cadence)
+      )
+        return alert("Inputs have to be positive numbers!");
+
+      workout = new Jogging([lat, lng], distance, time);
+    }
+
     if (type === "biking") {
       // Check if data is valid
       if (!validInputs(distance, time) || !allPositive(distance, time))
@@ -179,16 +207,29 @@ class App {
         </div>
     `;
 
+    if (bikeride.type === "jogging")
+      html += `
+        <div class="bikeride__details">
+          <span class="bikeride__icon">⚡️</span>
+          <span class="bikeride__value">${bikeride.pace.toFixed(1)}</span>
+          <span class="bikeride__unit">min/km</span>
+        </div>
+        <div class="bikeride__details">
+          <span class="bikeride__icon">🦶🏼</span>
+          <span class="bikeride__unit">spm</span>
+        </div>
+      </li>
+      `;
+
     if (bikeride.type === "biking")
       html += `
         <div class="bikeride__details">
           <span class="bikeride__icon">⚡️</span>
           <span class="bikeride__value">${bikeride.speed.toFixed(1)}</span>
-          <span class="bikeride__unit">km/h</span>
+          <span class="bikeride__unit">m/h</span>
         </div>
         <div class="bikeride__details">
           <span class="bikeride__icon">⛰</span>
-          <span class="bikeride__value">${bikeride.elevationGain}</span>
           <span class="bikeride__unit">m</span>
         </div>
       </li>
