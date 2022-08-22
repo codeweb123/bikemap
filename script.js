@@ -3,7 +3,7 @@
 class Exercise {
   date = new Date();
   id = (Date.now() + "").slice(-10);
-  clicks = 0;
+  clicks = 1;
 
   constructor(coords, distance, time) {
     this.coords = coords; // [lat, lng]
