@@ -3,7 +3,7 @@
 class Exercise {
   date = new Date();
   id = (Date.now() + "").slice(-10);
-  clicks = 1;
+  clicks = 0;
 
   constructor(coords, distance, time) {
     this.coords = coords; // [lat, lng]
@@ -155,7 +155,7 @@ class App {
     if (type === "biking") {
       // Check if data is valid
       if (!validInputs(distance, time) || !allPositive(distance, time))
-        return alert("Inputs have to be positive numbers!");
+        return alert("Inputs must be positive.");
       exercise = new Biking([lat, lng], distance, time);
     }
 
