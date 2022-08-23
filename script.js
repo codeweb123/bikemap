@@ -35,7 +35,7 @@ class Jogging extends Exercise {
   }
 
   calcPace() {
-    // min/km
+    // min/m
     this.pace = this.time / this.distance;
     return this.pace;
   }
@@ -52,17 +52,18 @@ class Biking extends Exercise {
   }
 
   calcSpeed() {
-    // km/h
+    // m/h
     this.speed = this.distance / (this.time / 60);
     return this.speed;
   }
 }
 // APPLICATION ARCHITECTURE
 const form = document.querySelector(".form");
-const containerWorkouts = document.querySelector(".exercises");
+const containerExercises = document.querySelector(".exercises");
 const inputType = document.querySelector(".form__input--type");
 const inputDistance = document.querySelector(".form__input--distance");
 const inputTime = document.querySelector(".form__input--time");
+
 //private class fields : private instance properties
 class App {
   #map;
@@ -71,15 +72,15 @@ class App {
   #exercises = [];
 
   constructor() {
-    // Get user's position
+    // user's position
     this._getPosition();
 
-    // Get data from local storage
+    // data from local storage
     this._getLocalStorage();
 
-    // Attach event handlers
+    // vent handlers
     form.addEventListener("submit", this._newExercise.bind(this));
-    containerexercises.addEventListener("click", this._moveToPopup.bind(this));
+    containerExercises.addEventListener("click", this._moveToPopup.bind(this));
   }
 
   _getPosition() {
@@ -142,33 +143,29 @@ class App {
     let exercise;
 
     if (type === "jogging") {
-      // Check if data is valid
       if (!validInputs(distance, time) || !allPositive(distance, time))
         return alert("Inputs have to be positive numbers!");
-
       exercise = new Jogging([lat, lng], distance, time);
     }
 
     if (type === "biking") {
-      // Check if data is valid
       if (!validInputs(distance, time) || !allPositive(distance, time))
         return alert("Inputs must be positive.");
       exercise = new Biking([lat, lng], distance, time);
     }
 
-    // Add new object to workout array
+    // Add new object to array
     this.#exercises.push(exercise);
 
-    // Render workout on map as marker
     this._renderExerciseMarker(exercise);
 
-    // Render workout on list
+    //on list
     this._renderExercise(exercise);
 
-    // Hide form + clear input fields
+    // Hide form
     this._hideForm();
 
-    // Set local storage to all workouts
+    // Set local storage
     this._setLocalStorage();
   }
 
@@ -266,8 +263,8 @@ class App {
 
     this.#exercises = data;
 
-    this.#exercises.forEach((bike) => {
-      this._renderExercise(bike);
+    this.#exercises.forEach((exer) => {
+      this._renderExercise(exer);
     });
   }
 
