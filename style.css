@@ -77,10 +77,10 @@ a:visited {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 0.75rem 1.5rem;
 }
-.exercise--running {
+.exercise--jogging {
   border-left: 5px solid var(--color-brand--2);
 }
-.exercise--cycling {
+.exercise--biking {
   border-left: 5px solid var(--color-brand--1);
 }
 
@@ -171,24 +171,6 @@ a:visited {
   display: none;
 }
 
-.copyright {
-  margin-top: auto;
-  font-size: 1.3rem;
-  text-align: center;
-  color: var(--color-light--1);
-}
-
-.twitter-link:link,
-.twitter-link:visited {
-  color: var(--color-light--1);
-  transition: all 0.2s;
-}
-
-.twitter-link:hover,
-.twitter-link:active {
-  color: var(--color-light--2);
-}
-
 /* MAP */
 #map {
   flex: 1;
@@ -212,7 +194,7 @@ a:visited {
   background-color: var(--color-dark--1);
 }
 
-.running-popup .leaflet-popup-content-wrapper {
+.jogging-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid var(--color-brand--2);
 }
 
