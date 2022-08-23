@@ -181,7 +181,9 @@ class App {
           className: `${exercise.type}-popup`,
         })
       )
-      .setPopupContent(`${exercise.type === "🚴‍♀️"} ${exercise.description}`)
+      .setPopupContent(
+        `${exercise.type === "jogging" ? "🏃‍♂️" : "🚴‍♀️"} ${exercise.description}`
+      )
       .openPopup();
   }
 
@@ -190,9 +192,11 @@ class App {
       <li class="workout workout--${exercise.type}" data-id="${exercise.id}">
         <h2 class="exercise__title">${exercise.description}</h2>
         <div class="exercise__details">
-          <span class="exercise__icon">${exercise.type === "🚴‍♀️"}</span>
+          <span class="exercise__icon">${
+            exercise.type === "running" ? "🏃‍♂️" : "🚴‍♀️"
+          }</span>
           <span class="exercise__value">${exercise.distance}</span>
-          <span class="exercise__unit">km</span>
+          <span class="exercise__unit">m</span>
         </div>
         <div class="exercise__details">
           <span class="exercise__icon">⏱</span>
