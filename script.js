@@ -63,7 +63,7 @@ const containerWorkouts = document.querySelector(".exercises");
 const inputType = document.querySelector(".form__input--type");
 const inputDistance = document.querySelector(".form__input--distance");
 const inputTime = document.querySelector(".form__input--time");
-
+//private class fields : private instance properties
 class App {
   #map;
   #mapZoomLevel = 13;
@@ -78,7 +78,7 @@ class App {
     this._getLocalStorage();
 
     // Attach event handlers
-    form.addEventListener("submit", this._newexercise.bind(this));
+    form.addEventListener("submit", this._newExercise.bind(this));
     containerexercises.addEventListener("click", this._moveToPopup.bind(this));
   }
 
@@ -127,7 +127,7 @@ class App {
     setTimeout(() => (form.style.display = "grid"), 1000);
   }
 
-  _newexercise(e) {
+  _newExercise(e) {
     const validInputs = (...inputs) =>
       inputs.every((inp) => Number.isFinite(inp));
     const allPositive = (...inputs) => inputs.every((inp) => inp > 0);
