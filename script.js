@@ -244,7 +244,7 @@ class App {
     if (!exerciseEl) return;
 
     const exercise = this.#exercises.find(
-      (bike) => bike.id === exerciseEl.dataset.id
+      (exer) => exer.id === exerciseEl.dataset.id
     );
 
     this.#map.setView(exercise.coords, this.#mapZoomLevel, {
