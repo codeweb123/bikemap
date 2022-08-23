@@ -143,13 +143,10 @@ class App {
 
     if (type === "jogging") {
       // Check if data is valid
-      if (
-        !validInputs(distance, duration, cadence) ||
-        !allPositive(distance, duration, cadence)
-      )
+      if (!validInputs(distance, time) || !allPositive(distance, time))
         return alert("Inputs have to be positive numbers!");
 
-      workout = new Jogging([lat, lng], distance, time);
+      exercise = new Jogging([lat, lng], distance, time);
     }
 
     if (type === "biking") {
@@ -163,10 +160,10 @@ class App {
     this.#exercises.push(exercise);
 
     // Render workout on map as marker
-    this._renderexerciseMarker(exercise);
+    this._renderExerciseMarker(exercise);
 
     // Render workout on list
-    this._renderexercise(exercise);
+    this._renderExercise(exercise);
 
     // Hide form + clear input fields
     this._hideForm();
@@ -175,7 +172,7 @@ class App {
     this._setLocalStorage();
   }
 
-  _renderexerciseMarker(exercise) {
+  _renderExerciseMarker(exercise) {
     L.marker(exercise.coords)
       .addTo(this.#map)
       .bindPopup(
@@ -191,7 +188,7 @@ class App {
       .openPopup();
   }
 
-  _renderexercise(exercise) {
+  _renderExercise(exercise) {
     let html = `
       <li class="workout workout--${exercise.type}" data-id="${exercise.id}">
         <h2 class="exercise__title">${exercise.description}</h2>
@@ -270,7 +267,7 @@ class App {
     this.#exercises = data;
 
     this.#exercises.forEach((bike) => {
-      this._renderexercise(bike);
+      this._renderExercise(bike);
     });
   }
 
