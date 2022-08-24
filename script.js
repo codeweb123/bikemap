@@ -7,7 +7,7 @@ class Exercise {
 
   constructor(coords, distance, time) {
     this.coords = coords; // [lat, lng]
-    this.distance = distance; // in m
+    this.distance = distance; // in miles
     this.time = time; // in min
   }
 
@@ -110,7 +110,7 @@ class App {
     this.#map.on("click", this._showForm.bind(this));
 
     this.#exercises.forEach((bike) => {
-      this._renderexerciseMarker(bike);
+      this._renderExerciseMarker(bike);
     });
   }
 
@@ -193,15 +193,15 @@ class App {
         <h2 class="exercise__title">${exercise.description}</h2>
         <div class="exercise__details">
           <span class="exercise__icon">${
-            exercise.type === "running" ? "🏃‍♂️" : "🚴‍♀️"
+            exercise.type === "jogging" ? "🏃‍♂️" : "🚴‍♀️"
           }</span>
           <span class="exercise__value">${exercise.distance}</span>
-          <span class="exercise__unit">m</span>
+          <span class="exercise__unit">miles</span>
         </div>
         <div class="exercise__details">
           <span class="exercise__icon">⏱</span>
           <span class="exercise__value">${exercise.time}</span>
-          <span class="exercise__unit">min</span>
+          <span class="exercise__unit">minutes</span>
         </div>
     `;
 
@@ -210,11 +210,7 @@ class App {
         <div class="exercise__details">
           <span class="exercise__icon">⚡️</span>
           <span class="exercise__value">${exercise.pace.toFixed(1)}</span>
-          <span class="exercise__unit">min/km</span>
-        </div>
-        <div class="exercise__details">
-          <span class="exercise__icon">🦶🏼</span>
-          <span class="exercise__unit">spm</span>
+          <span class="exercise__unit">minutes/miles</span>
         </div>
       </li>
       `;
@@ -224,11 +220,7 @@ class App {
         <div class="exercise__details">
           <span class="exercise__icon">⚡️</span>
           <span class="exercise__value">${exercise.speed.toFixed(1)}</span>
-          <span class="exercise__unit">m/h</span>
-        </div>
-        <div class="exercise__details">
-          <span class="exercise__icon">⛰</span>
-          <span class="exercise__unit">m</span>
+          <span class="exercise__unit">miles/hour</span>
         </div>
       </li>
       `;
