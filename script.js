@@ -189,7 +189,7 @@ class App {
 
   _renderExercise(exercise) {
     let html = `
-      <li class="workout workout--${exercise.type}" data-id="${exercise.id}">
+      <li class="exercise exercise--${exercise.type}" data-id="${exercise.id}">
         <h2 class="exercise__title">${exercise.description}</h2>
         <div class="exercise__details">
           <span class="exercise__icon">${
@@ -229,9 +229,7 @@ class App {
   }
 
   _moveToPopup(e) {
-    // BUGFIX: When we click on a workout before the map has loaded, we get an error. But there is an easy fix:
     if (!this.#map) return;
-
     const exerciseEl = e.target.closest(".exercise");
 
     if (!exerciseEl) return;
