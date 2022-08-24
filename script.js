@@ -36,7 +36,7 @@ class Jogging extends Exercise {
 
   calcPace() {
     // min/m
-    this.pace = this.time / this.distance;
+    this.pace = this.distance / (this.time / 60);
     return this.pace;
   }
 }
@@ -210,7 +210,7 @@ class App {
         <div class="exercise__details">
           <span class="exercise__icon">⚡️</span>
           <span class="exercise__value">${exercise.pace.toFixed(1)}</span>
-          <span class="exercise__unit">minutes/miles</span>
+          <span class="exercise__unit">miles/hour</span>
         </div>
       </li>
       `;
