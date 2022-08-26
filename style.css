@@ -3,7 +3,7 @@
   --color-brand--2: #00c46a;
   --color-dark--1: #8fb4cf;
   --color-dark--2: #88a1b4;
-  --color-light--1: #aaa;
+  --color-light--1: rgb(198, 195, 195);
   --color-light--2: #ececec;
   --color-light--3: rgb(214, 222, 224);
 }
@@ -15,7 +15,7 @@
 }
 
 html {
-  font-size: 62.5%;
+  font-size: 63.5%;
   box-sizing: border-box;
 }
 
@@ -23,7 +23,7 @@ body {
   font-family: 'Manrope', sans-serif;
   color: var(--color-light--2);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.7;
   height: 100vh;
   overscroll-behavior-y: none;
   background-color: #fff;
