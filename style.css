@@ -24,7 +24,7 @@ body {
   color: var(--color-light--2);
   font-weight: 400;
   line-height: 1.7;
-  height: 100vh;
+  height: 101vh;
   overscroll-behavior-y: none;
   background-color: #fff;
   padding: 2.5rem;
